@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Habitats
+{% endblock %}
+{% block body %}
+	<link rel="stylesheet" href="{{ asset('assets/css/habitat.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/header.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/home.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}" type="text/css"/>
+
+
+	{% include '/pages/header.html.twig' %}
+
+	<div class="descarcadia">
+		<div class="title">
+			<hr class="ligne">
+			<h1>Arcadia est un zoo situé en France près de la forêt de Brocéliande, en Bretagne depuis 1960.</h1>
+			<hr class="ligne">
+
+			<div class="MainImageContainer">
+				<img src="uploads/images/elephants-5661842_1280.jpg" id="mainimg" alt="image d'éléphant"/>
+			</div>
+		</div>
+
+		<main>
+			<div class="titrehabitat">
+				<h1 id="titredeshabitats">Liste des habitats</h1>
+			</div>
+
+			{% for habitat in habitats %}
+				<div class="Expohabitat">
+					<div>
+						<p>{{ habitat.nom }}</p>
+						{% if habitat.imagefield %}
+							<div class="habitat-images">
+								<a href="{{ path('animaux') }}">
+
+									<img src="{{ asset('uploads/images/' ~ habitat.imagefield) }}" alt="Image de {{ habitat.nom }}" id="imagehabitat">
+								</a>
+							</div>
+						{% else %}
+							<p>Aucune image disponible pour cet habitat.</p>
+						{% endif %}
+					</div>
+				</div>
+			{% else %}
+				<p>Aucun habitat trouvé</p>
+			{% endfor %}
+		</main>
+	</div>
+	<footer>
+		<p>© 2024 Mon Projet. Tous droits réservés.</p>
+
+		<div class="hours">
+			<p>
+				<strong>Horaires d'ouverture :</strong>
+			</p>
+			<p>Lundi - Vendredi : 9h00 - 18h00</p>
+			<p>Samedi : 10h00 - 16h00</p>
+			<p>Dimanche : Fermé</p>
+		</div>
+	</footer>
+{% endblock %}

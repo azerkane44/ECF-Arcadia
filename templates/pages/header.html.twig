@@ -1,0 +1,86 @@
+</head>
+
+<body>
+	<header>
+		<div class="navbar">
+
+			<div class="logo">
+				<a href="/">Arcadia</a>
+			</div>
+			<ul class="links">
+				<li>
+					<a href="{{ path('acceuil') }}">
+						Acceuil</a>
+				</li>
+				<li>
+					<a href="{{ path('app_habitats') }}">
+						Habitat</a>
+				</li>
+				<li>
+					<a href="{{ path('service_list') }}">Service
+					</a>
+				</li>
+				<li>
+					<a href="{{ path('app_contact') }}">Contact
+					</a>
+				</li>
+
+				{% if is_granted('ROLE_ADMIN') %}
+					<li>
+						<a href="{{ path('admin') }}">Administration</a>
+					</li>
+				{% endif %}
+
+
+			</ul>
+			<div
+				class="buttons">
+				{# Vérifiez si l'utilisateur est connecté avec is_granted('IS_AUTHENTICATED_FULLY') #}
+				{% if not app.user %}
+					<a href="{{ path('app_login') }}" class="action-button">Se connecter</a>
+				{% endif %}
+				{% if app.user %}
+					<a href="{{ path('app_logout') }}" class="action-button">Se déconnecter</a>
+				{% endif %}
+
+				{% if app.user %}
+					<i class="fa-solid fa-user"></i>
+				{% else %}
+					deconnecté
+				{% endif %}
+				<div class="buttons-burger-menu"></div>
+			</div>
+			<div class="burger-menu-button">
+				<a href="#">
+					<i class="fa-solid fa-bars"></i>
+				</a>
+			</div>
+		</div>
+		<div class="burger-menu ">
+			<ul class="links">
+				<li>
+					<a href="/">
+						Acceuil</a>
+				</li>
+				<li>
+					<a href="habitat">Habitat</a>
+				</li>
+				<li>
+					<a href="service">Service
+					</a>
+				</li>
+				<li>
+					<a href="contact">Contact
+					</a>
+				</li>
+				<div class="divider"></div>
+				<div class="buttons-burger-menu">
+					<a href="deco" class="action-button pro">Deconnexion</a>
+				</div>
+				<div class="buttons-burger-menu">
+					<a href="connexion" class="action-button">Se connecter</a>
+				</div>
+			</ul>
+		</div>
+	</header>
+</body></html>

@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des animaux
+{% endblock %}
+
+{% block body %}
+	<link rel="stylesheet" href="{{ asset('assets/css/animaux.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/header.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/home.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}" type="text/css"/>
+
+	{% include '/pages/header.html.twig' %}
+
+	<div class="descarcadia">
+		<div class="title">
+			<hr class="ligne">
+			<h1>Arcadia est un zoo situé en France près de la forêt de Brocéliande, en Bretagne depuis 1960.</h1>
+			<hr class="ligne">
+
+			<div class="MainImageContainer">
+				<img src="uploads/images/elephants-5661842_1280.jpg" id="mainimg" alt="image d'éléphant"/>
+			</div>
+		</div>
+
+		<div>
+			<h1 class="text-center">Liste des animaux</h1>
+
+			<div>
+				{% if animaux is not empty %}
+					{% for animal in animaux %}
+						<div
+							class="blocanimaux">
+							<!-- Nom de l'habitat associé -->
+							<div class="titrehabitat">{{ animal.habitatanimaux }}</div>
+
+							<!-- Image de l'animal -->
+							<a href="">
+								<img src="{{ asset('uploads/images/' ~ animal.imageanimaux) }}" alt="Image de {{ animal.prenom }}" class="imageanimaux">
+							</a>
+
+							<!-- Informations de l'animal -->
+							<div class="information">
+								<p>
+									<strong>Prénom :</strong>
+									{{ animal.prenom }}</p>
+								<p>
+									<strong>Race :</strong>
+									{{ animal.race }}</p>
+								<p>
+									<strong>Habitat :</strong>
+									{{ animal.habitatanimaux }}</p>
+
+								<!-- Rapports vétérinaires associés à cet animal -->
+								<h3>Rapports Vétérinaires :</h3>
+
+								{% set rapportsAnimal = rapports|filter(rapport => rapport.animal == animal.prenom) %}
+
+								{% if rapportsAnimal is not empty %}
+									{% for rapport in rapportsAnimal %}
+										<div class="rapport-veterinaire">
+											<p>
+												<strong>État :</strong>
+												{{ rapport.etat }}</p>
+											<p>
+												<strong>Nourriture :</strong>
+												{{ rapport.nourriture }}</p>
+											<p>
+												<strong>Grammage :</strong>
+												{{ rapport.grammage }}g</p>
+											<p>
+												<strong>Date de passage :</strong>
+												{{ rapport.datePassage|date('d/m/Y H:i') }}</p>
+											{% if rapport.detailsetat is not empty %}
+												<button class="toggle-btn" onclick="toggleContent('{{ rapport.id }}')">Afficher les détails</button>
+												<div id="content-{{ rapport.id }}" class="hidden-content" style="display: none;">
+													<p>
+														<strong>Détails :</strong>
+														{{ rapport.detailsetat }}</p>
+												</div>
+											{% endif %}
+										</div>
+									{% endfor %}
+								{% else %}
+									<p>Aucun rapport vétérinaire disponible pour cet animal.</p>
+								{% endif %}
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<p>Aucun animal ajouté pour le moment.</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<p>© 2024 Mon Projet. Tous droits réservés.</p>
+		<div class="hours">
+			<p>
+				<strong>Horaires d'ouverture :</strong>
+			</p>
+			<p>Lundi - Vendredi : 9h00 - 18h00</p>
+			<p>Samedi : 10h00 - 16h00</p>
+			<p>Dimanche : Fermé</p>
+		</div>
+	</footer>
+
+	<script>
+		function toggleContent(id) {
+var content = document.getElementById("content-" + id);
+content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
+}
+	</script>
+{% endblock %}

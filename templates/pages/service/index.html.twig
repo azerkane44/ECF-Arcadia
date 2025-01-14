@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Services
+{% endblock %}
+
+
+{% block body %}
+	<link rel="stylesheet" href="{{ asset('assets/css/service.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/header.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/home.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}" type="text/css"/>
+
+
+	{% include '/pages/header.html.twig' %}
+
+	<div class="descarcadia">
+		<div class="title">
+			<hr class="ligne">
+			<h1>Acrcadia Arcadia est un zoo situé en France près de la forêt de Brocéliande, en Bretagne depuis 1960.</h1>
+			<hr class="ligne">
+
+			<div class="MainImageContainer">
+				<img src="uploads/images/elephants-5661842_1280.jpg" id="mainimg" alt="image d'éléphant"/>
+			</div>
+		</div>
+
+		<div id="services-container">
+			<h1 class="page-title">Nos Services</h1>
+
+			<table class="services-table table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Nom</th>
+						<th scope="col">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for service in services %}
+						<tr class="service-row">
+							<td class="service-name">{{ service.nom }}</td>
+							<td class="service-description">{{ service.description }}</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="2" class="no-service">Aucun service disponible.</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<footer>
+		<p>© 2024 Mon Projet. Tous droits réservés.</p>
+
+		<div class="hours">
+			<p>
+				<strong>Horaires d'ouverture :</strong>
+			</p>
+			<p>Lundi - Vendredi : 9h00 - 18h00</p>
+			<p>Samedi : 10h00 - 16h00</p>
+			<p>Dimanche : Fermé</p>
+		</div>
+	</footer>
+{% endblock %}

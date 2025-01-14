@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez-nous
+{% endblock %}
+
+{% block body %}
+	<link rel="stylesheet" href="{{ asset('assets/css/contact.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/header.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/home.css') }}" type="text/css"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}" type="text/css"/>
+
+
+	{% include '/pages/header.html.twig' %}
+
+
+	<h1 id="titrecontact">Contactez-nous</h1>
+
+	{# Afficher les messages de succès ou d'erreur #}
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success">{{ message }}</div>
+	{% endfor %}
+
+	<div
+		id="formcontainer">
+		{#<div form: "{{path(send_email)}}"></div>}
+																				{# Générer le formulaire #}
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		{{ form_end(form) }}
+	</div>
+	<footer>
+		<p>© 2024 Mon Projet. Tous droits réservés.</p>
+
+		<div class="hours">
+			<p>
+				<strong>Horaires d'ouverture :</strong>
+			</p>
+			<p>Lundi - Vendredi : 9h00 - 18h00</p>
+			<p>Samedi : 10h00 - 16h00</p>
+			<p>Dimanche : Fermé</p>
+		</div>
+	</footer>
+{% endblock %}
