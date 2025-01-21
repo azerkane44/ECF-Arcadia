@@ -16,30 +16,39 @@ use SebastianBergmann\CodeCoverage\Report\Html\Renderer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return $this->render('adminn/dashboard.html.twig');
+        return $this->render('adminn/dashboard.html.twig'); // Vérifie bien le chemin du fichier
     }
 
     public function configureDashboard(): Dashboard
     {
-        // Configuration du titre du dashboard
         return Dashboard::new()
             ->setTitle('Symrecipe - Administration')
             ->renderContentMaximized();
     }
 
-    /* Ajout des entités à administrer dans la page d'administration */
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
-        yield MenuItem::linkToCrud('Service', 'fas fa-concierge-bell', Service::class);
-        yield MenuItem::linkToCrud('Habitat', 'fas fa-paw', Habitat::class);
-        yield MenuItem::linkToCrud('Animaux', 'fas fa-dog', Animal::class);
-        yield MenuItem::linkToCrud('Rapports vétérinaires', 'fas fa-stethoscope', RapportVeterinaire::class); // Ajout du lien vers l'entité RapportVeterinaire
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
+            yield MenuItem::linkToCrud('Service', 'fas fa-concierge-bell', Service::class);
+            yield MenuItem::linkToCrud('Habitat', 'fas fa-paw', Habitat::class);
+            yield MenuItem::linkToCrud('Animaux', 'fas fa-dog', Animal::class);
+            yield MenuItem::linkToRoute('Liste des Avis', 'fas fa-comments', 'admin_avis'); // Vers la liste et suppression des avis
+            
+
+        }
+
+        if ($this->isGranted('ROLE_EMPLOYE') || $this->isGranted('ROLE_VETERINAIRE')) {
+            yield MenuItem::linkToCrud('Rapports vétérinaires', 'fas fa-stethoscope', RapportVeterinaire::class);
+        }
     }
 }
+

@@ -53,36 +53,31 @@
 								<!-- Rapports vétérinaires associés à cet animal -->
 								<h3>Rapports Vétérinaires :</h3>
 
-								{% set rapportsAnimal = rapports|filter(rapport => rapport.animal == animal.prenom) %}
+<button class="toggle-rapports-btn" onclick="toggleRapports('{{ animal.id }}')">Afficher les Rapports Vétérinaires</button>
 
-								{% if rapportsAnimal is not empty %}
-									{% for rapport in rapportsAnimal %}
-										<div class="rapport-veterinaire">
-											<p>
-												<strong>État :</strong>
-												{{ rapport.etat }}</p>
-											<p>
-												<strong>Nourriture :</strong>
-												{{ rapport.nourriture }}</p>
-											<p>
-												<strong>Grammage :</strong>
-												{{ rapport.grammage }}g</p>
-											<p>
-												<strong>Date de passage :</strong>
-												{{ rapport.datePassage|date('d/m/Y H:i') }}</p>
-											{% if rapport.detailsetat is not empty %}
-												<button class="toggle-btn" onclick="toggleContent('{{ rapport.id }}')">Afficher les détails</button>
-												<div id="content-{{ rapport.id }}" class="hidden-content" style="display: none;">
-													<p>
-														<strong>Détails :</strong>
-														{{ rapport.detailsetat }}</p>
-												</div>
-											{% endif %}
-										</div>
-									{% endfor %}
-								{% else %}
-									<p>Aucun rapport vétérinaire disponible pour cet animal.</p>
-								{% endif %}
+<div id="rapports-{{ animal.id }}" class="rapports-container" style="display: none;">
+    {% set rapportsAnimal = rapports|filter(rapport => rapport.animal == animal.prenom) %}
+
+    {% if rapportsAnimal is not empty %}
+        {% for rapport in rapportsAnimal %}
+            <div class="rapport-veterinaire">
+                <p><strong>État :</strong> {{ rapport.etat }}</p>
+                <p><strong>Nourriture :</strong> {{ rapport.nourriture }}</p>
+                <p><strong>Grammage :</strong> {{ rapport.grammage }}g</p>
+                <p><strong>Date de passage :</strong> {{ rapport.datePassage|date('d/m/Y H:i') }}</p>
+
+                {% if rapport.detailsetat is not empty %}
+                    <button class="toggle-btn" onclick="toggleContent('{{ rapport.id }}')">Afficher les détails</button>
+                    <div id="content-{{ rapport.id }}" class="hidden-content" style="display: none;">
+                        <p><strong>Détails :</strong> {{ rapport.detailsetat }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucun rapport vétérinaire disponible pour cet animal.</p>
+    {% endif %}
+</div>
 							</div>
 						</div>
 					{% endfor %}
@@ -106,9 +101,24 @@
 	</footer>
 
 	<script>
-		function toggleContent(id) {
-var content = document.getElementById("content-" + id);
-content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
+		function toggleRapports(animalId) {
+    let rapportsDiv = document.getElementById("rapports-" + animalId);
+    if (rapportsDiv.style.display === "none") {
+        rapportsDiv.style.display = "block";
+    } else {
+        rapportsDiv.style.display = "none";
+    }
 }
+
+function toggleContent(rapportId) {
+    let contentDiv = document.getElementById("content-" + rapportId);
+    if (contentDiv.style.display === "none") {
+        contentDiv.style.display = "block";
+    } else {
+        contentDiv.style.display = "none";
+    }
+}
+
 	</script>
+
 {% endblock %}

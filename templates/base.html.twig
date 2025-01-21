@@ -1,23 +1,20 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>
-			{% block title %}Default Title
-			{% endblock %}
-		</title>
-		<link rel="stylesheet" href="{{ asset('styes.css') }}">
-	</head>
-	<body>
-		<header>
-			<!-- Menu ou autre contenu -->
-		</header>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>{% block title %}Bienvenue à Arcadia{% endblock %}</title>
+        <link rel="stylesheet" href="/assets/css/base.css"/>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        
 
-		<main>
-			{% block body %}{% endblock %}
-		</main>
+        <main>
+            {% block body %}{% endblock %}
+        </main>
 
-		<footer>
-			<!-- Footer -->
-		</footer>
-	</body>
+        
+        <script src="/assets/js/script.js"></script>
+    </body>
 </html>

@@ -33,11 +33,11 @@
 						<p>{{ habitat.nom }}</p>
 						{% if habitat.imagefield %}
 							<div class="habitat-images">
-								<a href="{{ path('animaux') }}">
+								<a href="{{ path('app_animaux') }}">
 
 									<img src="{{ asset('uploads/images/' ~ habitat.imagefield) }}" alt="Image de {{ habitat.nom }}" id="imagehabitat">
 								</a>
-							</div>
+							</div> 
 						{% else %}
 							<p>Aucune image disponible pour cet habitat.</p>
 						{% endif %}

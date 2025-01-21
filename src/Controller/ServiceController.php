@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ServiceController extends AbstractController
 {
-    #[Route('/services', name: 'service_list')]
+    #[Route('/service', name: 'service_list')]
     public function index(ServiceRepository $serviceRepository): Response
     {
         // Récupérer tous les services de la base de données

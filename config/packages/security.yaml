@@ -41,8 +41,8 @@ security:
   # Dans /admin ont va ajouter tous les autres rôle car il les à tous
   access_control:
     - { path: ^/admin, roles: ROLE_ADMIN }
-    - { path: ^/veterinaire, roles: ROLE_VETERINAIRE }
-    - { path: ^/employe, roles: ROLE_EMPLOYE }
+    - { path: ^/veterinaire, roles: [ROLE_VETERINAIRE, ROLE_ADMIN ]}
+    - { path: ^/admin, roles: [ROLE_EMPLOYE, ROLE_ADMIN] }
     - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

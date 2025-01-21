@@ -1,4 +1,5 @@
 <?php
+// src/Entity/Animal.php
 
 namespace App\Entity;
 
@@ -49,7 +50,6 @@ class Animal
     public function setPrenom(?string $prenom): static
     {
         $this->prenom = $prenom;
-
         return $this;
     }
 
@@ -61,7 +61,6 @@ class Animal
     public function setRace(string $race): static
     {
         $this->race = $race;
-
         return $this;
     }
 
@@ -73,7 +72,6 @@ class Animal
     public function setImageanimaux(string $imageanimaux): static
     {
         $this->imageanimaux = $imageanimaux;
-
         return $this;
     }
 
@@ -85,7 +83,6 @@ class Animal
     public function setHabitatanimaux(string $habitatanimaux): static
     {
         $this->habitatanimaux = $habitatanimaux;
-
         return $this;
     }
 
@@ -115,5 +112,11 @@ class Animal
         }
 
         return $this;
+    }
+
+    // Méthode __toString pour convertir l'objet en chaîne
+    public function __toString(): string
+    {
+        return $this->prenom ?? 'Inconnu';  // Vous pouvez ajuster cela en fonction des propriétés que vous souhaitez afficher
     }
 }
